@@ -20,16 +20,27 @@ function handleRecentTweets() {
 
 //Here the controller function attaches something with .done()
 // so that it can use the view when the data comes back.
-  promiseFromAjax.done(function(response) {
-    for(var i=0; i < response.length; i++){
-      console.log(response[i])
-    }
-
-  })
+  promiseFromAjax.done(showRecentTweets);
 }
+//
+// View style function
+function showRecentTweets(response) {
+  for(var i = 0; i < response.length; i++) {
+    var user = response[i]
+    var template = $('#tweet-template').clone()
+    //It clones the html template for each tweet
+    template.removeAttr('id')
+    //Removes id for JS purposes
+    template.removeAttr('style')
+    //To display the li
+    template.addClass('tweet')
+    //Adds a class of tweet
 
-// //
-// // //View style function
-// // function showRecentTweets(recentTweets) {
-// //    $("#tweets-container").html("The temperature will be " + weatherInfo.temp)
-// // }
+    template.find('.full-name').html(user.username)
+    template.find('.username').html(user.handle)
+    template.find('.content').html(user.content)
+    //This allows you to display the clone template you've created
+    $('#tweets-container ul').append(template)
+
+  }
+}
