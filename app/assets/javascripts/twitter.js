@@ -32,6 +32,8 @@ function showRecentTweets(response) {
         template.find('.username').html(user.handle)
         template.find('.content').html(user.content)
         template.find('.avatar').attr('src', user.avatar_url)
+        template.find('.avatar').attr('src', user.avatar_url)
+
         //This allows you to display the clone template you've created
         $('#tweets-container ul').append(template)
     }
@@ -61,6 +63,10 @@ function createTweet() {
   event.preventDefault();
 
   var data = $('#tweet-form').serialize()
+
+  var hashtagArray = data.match(/\W\W\d\d(\w*)/);
+  // console.log(hashtagArray[1])
+  console.log(data)
 
   var params = {
     url: "/tweets",

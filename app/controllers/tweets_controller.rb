@@ -22,7 +22,12 @@ class TweetsController < ApplicationController
     tweet.avatar_url ||= Faker::Avatar.image(tweet.username)
     tweet.save
 
+    p "***************"
+    p params[:hashtags]
+    p "***************"
+
     hashtags_names = params[:hashtags] || []
+    p hashtags_names
     hashtags_names.each do |name|
       hashtag = Hashtag.where(name: name).first_or_create
       tweet.hashtags << hashtag
