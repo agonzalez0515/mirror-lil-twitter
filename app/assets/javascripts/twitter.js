@@ -64,12 +64,6 @@ function createTweet() {
 
   var data = $('#tweet-form').serialize()
 
-  var tweet = $('#new-tweet').val();
-  var tag = tweet.match(/#(\w*)/)[1];
-  debugger
-  // console.log(hashtagArray[1])
-  console.log(data)
-
   var params = {
     url: "/tweets",
     method: "post",
