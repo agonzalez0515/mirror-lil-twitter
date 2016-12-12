@@ -2,6 +2,7 @@ $(document).ready(function() {
     handleRecentTweets();
     handlePopularHashtags();
     $('#tweet-form').on('submit', createTweet)
+    $('.fa-search').on('click', fetchSearch)
 })
 
 function fetchRecentTweets() {
@@ -88,5 +89,33 @@ function showNewTweet(response) {
         template.find('.avatar').attr('src', tweet.avatar_url)
         //This allows you to display the clone template you've created
         $('#tweets-container ul').prepend(template)
+
+}
+
+
+///////////////////////////////////////////////
+
+function fetchSearch(){
+  event.preventDefault()
+
+  var data = $('#search').val()
+  var url = 'tweets/search/'+ data
+
+  var requestPromise = $.ajax({
+    url: url ,
+    method: "GET",
+    data: data})
+
+  return requestPromise
+}
+
+function handleSearch() {
+    var promiseFromAjax = fetchPopularHashtags();
+    promiseFromAjax.done(showPopularHashtags);
+}
+
+
+function showSearch(response){
+
 
 }
