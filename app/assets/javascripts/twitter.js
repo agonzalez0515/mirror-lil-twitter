@@ -104,18 +104,24 @@ function fetchSearch(){
   var requestPromise = $.ajax({
     url: url ,
     method: "GET",
-    data: data})
-
-  return requestPromise
-}
-
-function handleSearch() {
-    var promiseFromAjax = fetchPopularHashtags();
-    promiseFromAjax.done(showPopularHashtags);
+    data: data}).done(showSearch)
 }
 
 
 function showSearch(response){
+  var template = $('#tweet-template').clone()
+  $('#tweets-container ul').empty()
 
-
+  for (var i = 0; i < response.length; i++) {
+    var second_clone = template.clone()
+    var searched_tweets = response[i]
+    second_clone.removeAttr('id')
+    second_clone.removeAttr('style')
+    second_clone.addClass('tweet')
+    second_clone.find('.full-name').html(searched_tweets.username)
+    second_clone.find('.username').html(searched_tweets.handle)
+    second_clone.find('.content').html(searched_tweets.content)
+    second_clone.find('.avatar').attr('src', searched_tweets.avatar_url)
+    $('#tweets-container ul').append(second_clone)
+  }
 }
