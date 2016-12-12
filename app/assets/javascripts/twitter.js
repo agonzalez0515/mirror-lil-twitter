@@ -98,6 +98,7 @@ function showNewTweet(response) {
 function fetchSearch(){
   event.preventDefault()
 
+
   var data = $('#search').val()
   var url = 'tweets/search/'+ data
   var requestPromise = $.ajax({
@@ -112,6 +113,7 @@ function fetchSearch(){
 
 
 function showSearch(response){
+  $('#search').css("background-color", "")
   var template = $('#tweet-template').clone()
   $('#tweets-container ul').empty()
 
