@@ -100,11 +100,14 @@ function fetchSearch(){
 
   var data = $('#search').val()
   var url = 'tweets/search/'+ data
-
   var requestPromise = $.ajax({
     url: url ,
     method: "GET",
-    data: data}).done(showSearch)
+    data: data})
+
+    .done(showSearch)
+    .fail(noResults)
+
 }
 
 
@@ -124,4 +127,8 @@ function showSearch(response){
     second_clone.find('.avatar').attr('src', searched_tweets.avatar_url)
     $('#tweets-container ul').append(second_clone)
   }
+}
+
+function noResults(){
+  $('#search').css("background-color", "red")
 }
