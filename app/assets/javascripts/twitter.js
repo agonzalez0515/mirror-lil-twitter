@@ -3,6 +3,7 @@ $(document).ready(function() {
     handlePopularHashtags();
     $('#tweet-form').on('submit', createTweet)
     $('.fa-search').on('click', fetchSearch)
+    // $('#trends').on('click', clickTrends)
 })
 
 function fetchRecentTweets() {
@@ -53,8 +54,10 @@ function handlePopularHashtags() {
 function showPopularHashtags(response) {
     for (var i = 0; i < response.length; i++) {
         var hashtag = response[i].name
+        var tagLink = "<a href='tweets/search/" + hashtag + "'>"
+        console.log(tagLink)
 
-        $('#trends-container').find('ul').append("<li>" + hashtag + "</li>");
+        $('#trends-container').find('ul').append("<li>" + tagLink + hashtag + "</a>" + "</li>");
     }
 }
 
@@ -98,7 +101,6 @@ function showNewTweet(response) {
 function fetchSearch(){
   event.preventDefault()
 
-
   var data = $('#search').val()
   var url = 'tweets/search/'+ data
   var requestPromise = $.ajax({
@@ -110,7 +112,6 @@ function fetchSearch(){
     .fail(noResults)
 
 }
-
 
 function showSearch(response){
   $('#search').css("background-color", "")
@@ -133,4 +134,12 @@ function showSearch(response){
 
 function noResults(){
   $('#search').css("background-color", "red")
+}
+
+///////////////////////////
+
+
+function clickTrends(){
+  event.preventDefault()
+  showSearch()
 }
